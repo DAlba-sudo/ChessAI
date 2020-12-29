@@ -1,0 +1,5 @@
+[cmd] add
+[cmd] mult
+[cmd] div
+[cmd] sub
+[cmd] pow
