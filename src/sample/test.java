@@ -8,29 +8,33 @@ import backend.chess.pieces.revised.*;
 
 public class test {
 
+    private static ChessBoard cb;
+
     public static void main(String[] args) {
-        ChessBoard cb = new ChessBoard();
+        cb = new ChessBoard();
         cb.display();
 
         Player diego = new Player(cb, 1);
         Player ai = new Player(cb, 0);
 
-        if(diego.movePiece("e4")){
+        movePieceShorthand(diego, "e4");
+        movePieceShorthand(ai, "d5");
+        movePieceShorthand(diego, "exd5");
+        movePieceShorthand(ai, "h5");
+        movePieceShorthand(diego, "g4");
+        movePieceShorthand(ai, "hxg4");
+        movePieceShorthand(diego, "Qxg4");
+        movePieceShorthand(ai, "Bg4");
+        movePieceShorthand(diego, "Qxg7");
+    }
+
+    public static void movePieceShorthand(Player p, String notation){
+        if(p.movePiece(notation)){
             cb.display();
         } else {
             System.out.println();
-            System.out.println("Not Possible move!");
+            System.out.println("Not Possible move! > " + notation);
         }
-
-        if(ai.movePiece("e5")){
-            cb.display();
-        } else {
-            System.out.println();
-            System.out.println("Not Possible move!");
-        }
-
-
-
     }
 
 }

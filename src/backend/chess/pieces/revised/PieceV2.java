@@ -38,7 +38,7 @@ public abstract class PieceV2 {
         int target_file = target_position[1];
 
         if(ChessManager.isCapturing(notation)){
-            return isCaptureLegal(target_rank, target_file) && isValidPos(target_rank, target_file);
+            return isCaptureLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
         }
         return isMoveLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
     }

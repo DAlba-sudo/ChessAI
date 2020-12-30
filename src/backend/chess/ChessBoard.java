@@ -139,17 +139,12 @@ public class ChessBoard {
     public boolean checkIfPiecesCollide(PieceV2 p1, String notation, boolean isCapturing){
         //TODO: Fix this function
         int[] target_location = ChessManager.getCoordinateToMoveTo(notation);
-        int[] current_location = p1.getCurrentCoordinate();
 
         boolean isDiagonal = p1.isMovingDiagonal(target_location[0], target_location[1]);
-        boolean isMoving = p1.isMoving(target_location[0], target_location[1]);
-        boolean isForward = p1.isMovingForward(target_location[1]);
-        boolean isMovingToSide = p1.isMovingToSide(target_location[0]);
-
-        if(isMoving){
-            if(isDiagonal){
-                return piecesOnDiagonal(p1, target_location);
-            }
+        if(isDiagonal){
+            System.out.println();
+            System.out.println(p1);
+            return piecesOnDiagonal(p1, target_location);
         }
         return false;
     }

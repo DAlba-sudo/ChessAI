@@ -12,7 +12,8 @@ public class KingV2 extends PieceV2{
 
     @Override
     public boolean isMoveLegal(int x, int y) {
-        return isMoving(x, y) && (delta(x, getCurrentCoordinate()[0]) == 1 || delta(y, getCurrentCoordinate()[1]) == 1);
+        return isMoving(x, y)
+                && !(delta(x, getCurrentCoordinate()[0]) > 1 || delta(y, getCurrentCoordinate()[1]) > 1);
     }
 
     @Override

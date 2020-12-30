@@ -37,6 +37,8 @@ public class Player {
     }
 
     public boolean movePiece(String notation) {
+        getPieces();
+
         boolean isAmbiguous = ChessManager.isAmbiguous(notation);
         boolean isCapturing = ChessManager.isCapturing(notation);
         int[] from = ChessManager.getCoordinateToMoveFrom(notation);
@@ -59,13 +61,23 @@ public class Player {
                                     cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
                                     cb.getBoard()[target_pos[1] - 1][target_pos[0] - 1] = p;
                                 } else {
-                                    cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
                                     cb.getBoard()[target_pos[1] - 1][target_pos[0] - 1].setDead();
+                                    cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
                                 }
+                                cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                                return p.setPosition(notation);
                             }
+                        } else {
+                            if (!isCapturing) {
+                                cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
+                                cb.getBoard()[target_pos[1] - 1][target_pos[0] - 1] = p;
+                            } else {
+                                cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
+                                cb.getBoard()[target_pos[1] - 1][target_pos[0] - 1].setDead();
+                            }
+                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                            return p.setPosition(notation);
                         }
-                        cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
-                        return p.setPosition(notation);
                     }
                 }
             } else {
