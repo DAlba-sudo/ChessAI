@@ -1,6 +1,6 @@
 package backend.chess;
 
-import backend.chess.pieces.*;
+import backend.chess.pieces.revised.*;
 
 import java.util.Stack;
 
@@ -8,7 +8,6 @@ public class ChessManager {
     public static final char[] files = new char[]{
             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'
     };
-    // TODO: TEST THE getCoordinateToMoveFrom() method for ambiguity cases
     public static boolean isWithin(int num, int max, int min){
         return num <= max && num >= min;
     }
@@ -93,5 +92,29 @@ public class ChessManager {
             }
         }
         return new int[]{-1, -1};
+    }
+
+    public static Class<? extends PieceV2> getPieceType(String notation) {
+        if (notation.length() > 0) {
+            if (Character.isUpperCase(notation.charAt(0))) {
+                switch (notation.charAt(0)) {
+                    case 'K':
+                        return KingV2.class;
+                    case 'Q':
+                        return QueenV2.class;
+                    case 'B':
+                        return BishopV2.class;
+                    case 'N':
+                        return KnightV2.class;
+                    case 'R':
+                        return RookV2.class;
+                    default:
+                        return null;
+                }
+            } else {
+                return PawnV2.class;
+            }
+        }
+        return null;
     }
 }

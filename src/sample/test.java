@@ -3,12 +3,23 @@ package sample;
 
 import backend.chess.ChessBoard;
 import backend.chess.ChessManager;
+import backend.chess.agents.Player;
 import backend.chess.pieces.revised.*;
 
 public class test {
 
     public static void main(String[] args) {
         ChessBoard cb = new ChessBoard();
+        displayChessBoard(cb);
+
+        Player diego = new Player(cb, 1);
+        diego.movePiece("e4");
+        displayChessBoard(cb);
+
+    }
+
+    public static void displayChessBoard(ChessBoard cb){
+        System.out.println();
         for(int r = 0; r < cb.getBoard().length; r++){
             System.out.println();
             for(int c = 0; c < cb.getBoard()[r].length; c++){
