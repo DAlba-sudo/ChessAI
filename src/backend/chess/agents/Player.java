@@ -38,35 +38,65 @@ public class Player {
 
     public boolean movePiece(String notation) {
         boolean isAmbiguous = ChessManager.isAmbiguous(notation);
+        boolean isCapturing = ChessManager.isCapturing(notation);
         int[] from = ChessManager.getCoordinateToMoveFrom(notation);
-
         Class<? extends PieceV2> piece_type = ChessManager.getPieceType(notation);
-        for(PieceV2 p : pieces){
+        boolean canJump;
+
+        for(int i = 0; i < pieces.size(); i++){
+            PieceV2 p = pieces.get(i);
             if(!isAmbiguous){
                 assert piece_type != null;
                 if(piece_type.isInstance(p)){
                     // if a rook is referenced, is our object 'p' a rook? Yes.
                     if(p.isPosLegal(notation)){
-                        p.setPosition(notation);
-                        return true;
+                        int[] current_pos = ChessManager.getCoordinateToMoveTo(p.getCurrentPosition());
+                        int[] target_pos =  ChessManager.getCoordinateToMoveTo(notation);
+                        if(!isCapturing){
+                            cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
+                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                        } else {
+                            cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
+                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1].setDead();
+                        }
+                        cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                        return p.setPosition(notation);
                     }
                 }
             } else {
-                // if it is not ambiguous we have to do some inferring
+                // if it ambiguous we have to do some inferring
                 if(from[0] != -1 && from[1] != -1){
                     // if we are given the exact coordinates, we move
                     if(Arrays.equals(p.getCurrentCoordinate(), from)){
                         if(p.isPosLegal(notation)){
-                            p.setPosition(notation);
-                            return true;
+                            int[] current_pos = ChessManager.getCoordinateToMoveTo(p.getCurrentPosition());
+                            int[] target_pos =  ChessManager.getCoordinateToMoveTo(notation);
+                            if(!isCapturing){
+                                cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
+                                cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                            } else {
+                                cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
+                                cb.getBoard()[target_pos[1]-1][target_pos[0]-1].setDead();
+                            }
+                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                            return p.setPosition(notation);
                         }
                     }
                 } else if (from[0] != -1 && from[1] == -1){
                     // if we are only given the file, we infer from that
                     if(p.getCurrentCoordinate()[0] == from[0]){
                         if(p.isPosLegal(notation)){
-                            p.setPosition(notation);
-                            return true;
+                            int[] current_pos = ChessManager.getCoordinateToMoveTo(p.getCurrentPosition());
+                            int[] target_pos =  ChessManager.getCoordinateToMoveTo(notation);
+                            if(!isCapturing){
+                                cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
+                                cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                            } else {
+                                cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
+                                cb.getBoard()[target_pos[1]-1][target_pos[0]-1].setDead();
+                            }
+                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
+                            return p.setPosition(notation);
                         }
                     }
                 } else {

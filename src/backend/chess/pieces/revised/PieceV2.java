@@ -2,6 +2,8 @@ package backend.chess.pieces.revised;
 
 import backend.chess.ChessManager;
 
+import java.util.Arrays;
+
 public abstract class PieceV2 {
 
     private String current_position;
@@ -9,6 +11,7 @@ public abstract class PieceV2 {
     private boolean canJump = false;
     private int[] current_coordinates = new int[2];
     private Character notation_for_piece;
+    boolean isDead = false;
 
 
     public PieceV2(String starting, int color, Character notation_for_piece){
@@ -19,7 +22,7 @@ public abstract class PieceV2 {
     }
 
     public PieceV2(int x, int y, int color, Character notation_for_piece){
-        String pos_notation = ChessManager.numToFile(x+1) + y+1;
+        String pos_notation = ChessManager.numToFile(x+1) + Integer.toString((y+1));
         setColor(color);
         this.notation_for_piece = notation_for_piece;
         this.current_position = pos_notation;
@@ -37,7 +40,7 @@ public abstract class PieceV2 {
         if(ChessManager.isCapturing(notation)){
             return isCaptureLegal(target_rank, target_file) && isValidPos(target_rank, target_file);
         }
-        return isMoveLegal(target_rank, target_file) && isValidPos(target_rank, target_file);
+        return isMoveLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
     }
 
     public boolean setPosition(String notation){
@@ -100,5 +103,21 @@ public abstract class PieceV2 {
 
     public Character getNotation() {
         return notation_for_piece;
+    }
+
+    public void setDead() {
+        isDead = true;
+    }
+
+    @Override
+    public String toString() {
+        return "PieceV2{" +
+                "current_position='" + current_position + '\'' +
+                ", color=" + color +
+                ", canJump=" + canJump +
+                ", current_coordinates=" + Arrays.toString(current_coordinates) +
+                ", notation_for_piece=" + notation_for_piece +
+                ", isDead=" + isDead +
+                '}';
     }
 }

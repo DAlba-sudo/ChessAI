@@ -42,7 +42,9 @@ public class ChessManager {
             char current_char = notation.charAt(i);
             if(current_char == '/'){
                 return true;
-            } else if (current_char == 'x'){
+            } else if (current_char == 'x' && !Character.isUpperCase(notation.charAt(i-1))){
+                return true;
+            } else if (current_char == 'x' && Character.isUpperCase(notation.charAt(i-1))){
                 return false;
             } else if (i == notation.length()-2){
                 return false;
@@ -80,6 +82,38 @@ public class ChessManager {
                             break;
                         } else {
                             sb.append(popped);
+                        }
+                    }
+                    // returns the coordinates as if we were moving there
+                    if(sb.toString().length() == 2){
+                        return getCoordinateToMoveTo(sb.toString());
+                    } else {
+                        return new int[]{fileToNum(sb.charAt(0)), -1};
+                    }
+                } else if (current_char == 'x' && (!Character.isUpperCase(notation.charAt(i+1)) || !Character.isUpperCase(notation.charAt(i+2)))){
+                    // this is a pawn case where it is ambiguous so specify
+                    StringBuilder sb = new StringBuilder();
+
+                    int counter = i;
+                    while(counter >= 0 && counter > i-2){
+                        characters.push(notation.charAt(counter));
+                        counter--;
+                    }
+
+                    while(!characters.empty()){
+                        char popped = characters.pop();
+
+                        // this builds a string up to the right length
+                        if(sb.length() == 0){
+                            sb.append(popped);
+                        } else if (sb.length() > 0 && Character.isAlphabetic(popped)){
+                            break;
+                        } else {
+                            sb.append(popped);
+                        }
+
+                        if(characters.peek() == 'x'){
+                            break;
                         }
                     }
                     // returns the coordinates as if we were moving there

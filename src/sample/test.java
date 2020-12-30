@@ -10,38 +10,109 @@ public class test {
 
     public static void main(String[] args) {
         ChessBoard cb = new ChessBoard();
-        displayChessBoard(cb);
+        cb.display();
 
         Player diego = new Player(cb, 1);
-        diego.movePiece("e4");
-        displayChessBoard(cb);
+        Player ai = new Player(cb, 0);
 
-    }
-
-    public static void displayChessBoard(ChessBoard cb){
-        System.out.println();
-        for(int r = 0; r < cb.getBoard().length; r++){
+        if(diego.movePiece("e4")){
+            cb.display();
+        } else {
             System.out.println();
-            for(int c = 0; c < cb.getBoard()[r].length; c++){
-                if(cb.getBoard()[r][c] != null){
-                    Character notation = cb.getBoard()[r][c].getNotation();
-                    if(notation != null){
-                        if(cb.getBoard()[r][c].getColor() == 1){
-                            System.out.print(" " + notation.toString().toUpperCase() + " ");
-                        } else {
-                            System.out.print(" "+notation.toString().toLowerCase() + " ");
-                        }
-                    } else {
-                        if(cb.getBoard()[r][c].getColor() == 1){
-                            System.out.print(" p ".toUpperCase());
-                        } else {
-                            System.out.print(" p ".toLowerCase());
-                        }
-                    }
-                } else {
-                    System.out.print(" - ");
-                }
-            }
+            System.out.println("Not Possible move!");
         }
+
+        if(ai.movePiece("e5")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(diego.movePiece("Nf3")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(ai.movePiece("Nf6")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(diego.movePiece("Ne5")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(ai.movePiece("Ne4")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(diego.movePiece("Qe2")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(ai.movePiece("Qe7")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(diego.movePiece("Qxe4")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(ai.movePiece("Nf6")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(diego.movePiece("Bb5")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(ai.movePiece("c6")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(diego.movePiece("Bxc6")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
+        if(ai.movePiece("bxc6")){
+            cb.display();
+        } else {
+            System.out.println();
+            System.out.println("Not Possible move!");
+        }
+
     }
+
 }
