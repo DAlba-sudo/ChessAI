@@ -8,15 +8,20 @@ public abstract class PieceV2 {
     private int color; // 0 > black ; 1 > white;
     private boolean canJump = false;
     private int[] current_coordinates = new int[2];
+    private Character notation_for_piece;
 
 
-    public PieceV2(String starting, int color){
+    public PieceV2(String starting, int color, Character notation_for_piece){
         this.current_position = starting;
+        setColor(color);
+        this.notation_for_piece = notation_for_piece;
         this.current_coordinates = ChessManager.getCoordinateToMoveTo(starting);
     }
 
-    public PieceV2(int x, int y, int color){
-        String pos_notation = ChessManager.numToFile(x) + y;
+    public PieceV2(int x, int y, int color, Character notation_for_piece){
+        String pos_notation = ChessManager.numToFile(x+1) + y+1;
+        setColor(color);
+        this.notation_for_piece = notation_for_piece;
         this.current_position = pos_notation;
         this.current_coordinates = ChessManager.getCoordinateToMoveTo(current_position);
     }
@@ -91,5 +96,9 @@ public abstract class PieceV2 {
 
     public void setJump(boolean canJump){
         this.canJump = canJump;
+    }
+
+    public Character getNotation() {
+        return notation_for_piece;
     }
 }

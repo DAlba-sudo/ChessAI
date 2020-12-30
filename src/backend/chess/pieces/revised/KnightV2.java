@@ -3,7 +3,7 @@ package backend.chess.pieces.revised;
 public class KnightV2 extends PieceV2{
 
     public KnightV2(String starting, int color) {
-        super(starting, color);
+        super(starting, color, 'N');
         setJump(true);
     }
 
@@ -16,7 +16,7 @@ public class KnightV2 extends PieceV2{
     }
 
     public KnightV2(int x, int y, int color) {
-        super(x, y, color);
+        super(x, y, color, 'N');
     }
 
     @Override

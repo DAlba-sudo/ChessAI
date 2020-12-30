@@ -3,11 +3,11 @@ package backend.chess.pieces.revised;
 public class QueenV2 extends PieceV2{
 
     public QueenV2(String starting, int color) {
-        super(starting, color);
+        super(starting, color, 'Q');
     }
 
     public QueenV2(int x, int y, int color) {
-        super(x, y, color);
+        super(x, y, color, 'Q');
     }
 
     @Override

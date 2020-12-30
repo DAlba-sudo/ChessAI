@@ -2,11 +2,11 @@ package backend.chess.pieces.revised;
 
 public class PawnV2 extends PieceV2{
     public PawnV2(String starting, int color) {
-        super(starting, color);
+        super(starting, color, null);
     }
 
     public PawnV2(int x, int y, int color) {
-        super(x, y, color);
+        super(x, y, color, null);
     }
 
     @Override
