@@ -1,14 +1,19 @@
-package backend.chess.pieces;
+package backend.chess.pieces.old;
+
+import backend.chess.pieces.old.Piece;
 
 import java.util.Arrays;
 
-public class Rook extends Piece{
+public class Rook extends Piece {
+    public Rook(int x, int y, int color){
+        super(x, y, 'R', false, color);
+    }
     public Rook(int x, int y){
         super(x, y, 'R', false);
     }
 
-    public Rook(String notation){
-        super(notation, false);
+    public Rook(String notation, int color){
+        super(notation, false, color);
     }
 
     @Override

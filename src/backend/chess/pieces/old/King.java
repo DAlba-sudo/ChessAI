@@ -1,15 +1,15 @@
-package backend.chess.pieces;
+package backend.chess.pieces.old;
 
 import java.util.Arrays;
 
 public class King extends Piece{
 
-    public King(int x, int y) {
-        super(x, y, 'K', false);
+    public King(int x, int y, int color) {
+        super(x, y, 'K', false, color);
     }
 
-    public King(String notation) {
-        super(notation, false);
+    public King(String notation, int color) {
+        super(notation, false, color);
     }
 
     public boolean isInCheck(int[] coordinate){

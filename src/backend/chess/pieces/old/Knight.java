@@ -1,15 +1,15 @@
-package backend.chess.pieces;
+package backend.chess.pieces.old;
 
 import java.util.Arrays;
 
 public class Knight extends Piece{
 
-    public Knight(int x, int y) {
-        super(x, y, 'N', true);
+    public Knight(int x, int y, int color) {
+        super(x, y, 'N', true, color);
     }
 
-    public Knight(String notation) {
-        super(notation, true);
+    public Knight(String notation, int color) {
+        super(notation, true, color);
     }
 
     @Override

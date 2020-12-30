@@ -1,16 +1,17 @@
-package backend.chess.pieces;
+package backend.chess.pieces.old;
 
 import java.util.Arrays;
 
 public class Bishop extends Piece{
 
-    public Bishop(int x, int y) {
-        super(x, y, 'B', false);
+    public Bishop(int x, int y, int color) {
+        super(x, y, 'B', false, color);
     }
 
-    public Bishop(String notation) {
-        super(notation, false);
+    public Bishop(String notation, int color) {
+        super(notation, false, color);
     }
+
 
     @Override
     public boolean canMove(int[] coordinateToMove) {

@@ -1,15 +1,17 @@
-package backend.chess.pieces;
+package backend.chess.pieces.old;
+
+import backend.chess.pieces.old.Piece;
 
 import java.util.Arrays;
 
-public class Queen extends Piece{
+public class Queen extends Piece {
 
-    public Queen(int x, int y) {
-        super(x, y, 'Q', false);
+    public Queen(int x, int y, int color) {
+        super(x, y, 'Q', false, color);
     }
 
-    public Queen(String notation) {
-        super(notation, false);
+    public Queen(String notation, int color) {
+        super(notation, false, color);
     }
 
     @Override

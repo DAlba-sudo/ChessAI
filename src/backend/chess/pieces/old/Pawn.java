@@ -1,17 +1,15 @@
-package backend.chess.pieces;
+package backend.chess.pieces.old;
 
 import backend.chess.ChessManager;
 
-import java.util.Arrays;
-
 public class Pawn extends Piece{
 
-    public Pawn(int x, int y){
-        super(x, y, null, false);
+    public Pawn(int x, int y, int color){
+        super(x, y, null, false, color);
     }
 
-    public Pawn(String notation) {
-        super(notation, false);
+    public Pawn(String notation, int color) {
+        super(notation, false, color);
     }
 
     @Override
