@@ -1,10 +1,11 @@
 package backend.chess;
 
 import backend.chess.pieces.old.*;
+import backend.chess.pieces.revised.*;
 
 public class ChessBoard {
 
-    private Piece[][] board = new Piece[8][8];
+    private PieceV2[][] board = new PieceV2[8][8];
 
     public ChessBoard(){
         populateBoard();
@@ -17,12 +18,12 @@ public class ChessBoard {
                 if(r == 1 || r == 6){
                     switch (r){
                         case 1:
-                            // pawn is white
-                            board[r][c] = new Pawn(r, c, 1);
+                            // PawnV2 is white
+                            board[r][c] = new PawnV2(r, c, 1);
                             break;
                         case 6:
-                            // pawn is black
-                            board[r][c] = new Pawn(r, c, 0);
+                            // PawnV2 is black
+                            board[r][c] = new PawnV2(r, c, 0);
                     }
                 } else if (r == 0 || r == 7){
                     switch (r){
@@ -30,28 +31,28 @@ public class ChessBoard {
                         case 0:
                             switch (c){
                                 case 0:
-                                    board[r][c] = new Rook(r, c, 1);
+                                    board[r][c] = new RookV2(r, c, 1);
                                     break;
                                 case 1:
-                                    board[r][c] = new Knight(r, c, 1);
+                                    board[r][c] = new KnightV2(r, c, 1);
                                     break;
                                 case 2:
-                                    board[r][c] = new Bishop(r, c, 1);
+                                    board[r][c] = new BishopV2(r, c, 1);
                                     break;
                                 case 3:
-                                    board[r][c] = new Queen(r, c, 1);
+                                    board[r][c] = new QueenV2(r, c, 1);
                                     break;
                                 case 4:
-                                    board[r][c] = new King(r, c, 1);
+                                    board[r][c] = new KingV2(r, c, 1);
                                     break;
                                 case 5:
-                                    board[r][c] = new Bishop(r, c, 1);
+                                    board[r][c] = new BishopV2(r, c, 1);
                                     break;
                                 case 6:
-                                    board[r][c] = new Knight(r, c, 1);
+                                    board[r][c] = new KnightV2(r, c, 1);
                                     break;
                                 case 7:
-                                    board[r][c] = new Rook(r, c, 1);
+                                    board[r][c] = new RookV2(r, c, 1);
                                     break;
                             }
                             break;
@@ -59,28 +60,28 @@ public class ChessBoard {
                         case 7:
                             switch (c){
                                 case 0:
-                                    board[r][c] = new Rook(r, c, 0);
+                                    board[r][c] = new RookV2(r, c, 0);
                                     break;
                                 case 1:
-                                    board[r][c] = new Knight(r, c, 0);
+                                    board[r][c] = new KnightV2(r, c, 0);
                                     break;
                                 case 2:
-                                    board[r][c] = new Bishop(r, c, 0);
+                                    board[r][c] = new BishopV2(r, c, 0);
                                     break;
                                 case 3:
-                                    board[r][c] = new Queen(r, c, 0);
+                                    board[r][c] = new QueenV2(r, c, 0);
                                     break;
                                 case 4:
-                                    board[r][c] = new King(r, c, 0);
+                                    board[r][c] = new KingV2(r, c, 0);
                                     break;
                                 case 5:
-                                    board[r][c] = new Bishop(r, c, 0);
+                                    board[r][c] = new BishopV2(r, c, 0);
                                     break;
                                 case 6:
-                                    board[r][c] = new Knight(r, c, 0);
+                                    board[r][c] = new KnightV2(r, c, 0);
                                     break;
                                 case 7:
-                                    board[r][c] = new Rook(r, c, 0);
+                                    board[r][c] = new RookV2(r, c, 0);
                                     break;
                             }
                             break;
@@ -90,7 +91,7 @@ public class ChessBoard {
         }
     }
 
-    public Piece[][] getBoard() {
+    public PieceV2[][] getBoard() {
         return board;
     }
 }

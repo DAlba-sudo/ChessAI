@@ -5,6 +5,10 @@ public class PawnV2 extends PieceV2{
         super(starting, color);
     }
 
+    public PawnV2(int x, int y, int color) {
+        super(x, y, color);
+    }
+
     @Override
     public boolean isMoveLegal(int x, int y) {
         boolean movementDirCorrect = isMovingForward(y) && isMoving(x, y);

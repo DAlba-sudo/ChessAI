@@ -15,6 +15,12 @@ public abstract class PieceV2 {
         this.current_coordinates = ChessManager.getCoordinateToMoveTo(starting);
     }
 
+    public PieceV2(int x, int y, int color){
+        String pos_notation = ChessManager.numToFile(x) + y;
+        this.current_position = pos_notation;
+        this.current_coordinates = ChessManager.getCoordinateToMoveTo(current_position);
+    }
+
     public abstract boolean isMoveLegal(int x, int y);
     public abstract boolean isCaptureLegal(int x, int y);
 

@@ -15,6 +15,10 @@ public class KnightV2 extends PieceV2{
         return (dy == 2 && dx == 1) || (dy == 1 && dx == 2) && isMoving(x, y);
     }
 
+    public KnightV2(int x, int y, int color) {
+        super(x, y, color);
+    }
+
     @Override
     public boolean isCaptureLegal(int x, int y) {
         return isMoveLegal(x, y);

@@ -6,6 +6,10 @@ public class QueenV2 extends PieceV2{
         super(starting, color);
     }
 
+    public QueenV2(int x, int y, int color) {
+        super(x, y, color);
+    }
+
     @Override
     public boolean isMoveLegal(int x, int y) {
         return isMoving(x, y) && (
