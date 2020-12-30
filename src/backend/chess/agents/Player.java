@@ -52,12 +52,17 @@ public class Player {
                     if(p.isPosLegal(notation)){
                         int[] current_pos = ChessManager.getCoordinateToMoveTo(p.getCurrentPosition());
                         int[] target_pos =  ChessManager.getCoordinateToMoveTo(notation);
-                        if(!isCapturing){
-                            cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
-                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
-                        } else {
-                            cb.getBoard()[current_pos[1]-1][current_pos[0]-1] = null;
-                            cb.getBoard()[target_pos[1]-1][target_pos[0]-1].setDead();
+                        canJump = p.canJump();
+                        if(!canJump) {
+                            if(!cb.checkIfPiecesCollide(p, notation, isCapturing)) {
+                                if (!isCapturing) {
+                                    cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
+                                    cb.getBoard()[target_pos[1] - 1][target_pos[0] - 1] = p;
+                                } else {
+                                    cb.getBoard()[current_pos[1] - 1][current_pos[0] - 1] = null;
+                                    cb.getBoard()[target_pos[1] - 1][target_pos[0] - 1].setDead();
+                                }
+                            }
                         }
                         cb.getBoard()[target_pos[1]-1][target_pos[0]-1] = p;
                         return p.setPosition(notation);
