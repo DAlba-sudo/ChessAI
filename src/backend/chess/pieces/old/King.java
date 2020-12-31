@@ -2,6 +2,7 @@ package backend.chess.pieces.old;
 
 import java.util.Arrays;
 
+@Deprecated
 public class King extends Piece{
 
     public King(int x, int y, int color) {

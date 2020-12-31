@@ -70,6 +70,7 @@ public class UIManager {
         Label lbl = new Label(text);
         lbl.setTextFill(CONSTANTS.STND_BLACK);
         lbl.setPadding(CONSTANTS.STND_PADDING);
+        lbl.setFont(CONSTANTS.STND_LABEL);
         lbl.setWrapText(true);
         return lbl;
     }

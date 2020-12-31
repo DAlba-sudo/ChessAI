@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import static backend.chess.ChessManager.isWithin;
 
+@Deprecated
 public abstract class Piece {
 
     private int[] coordinate = new int[2];

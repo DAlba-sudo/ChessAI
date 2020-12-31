@@ -107,6 +107,12 @@ public abstract class PieceV2 {
 
     public void setDead() {
         isDead = true;
+        this.current_position = "";
+        this.current_coordinates = new int[]{-1, -1};
+    }
+
+    public boolean getDead(){
+        return isDead;
     }
 
     @Override

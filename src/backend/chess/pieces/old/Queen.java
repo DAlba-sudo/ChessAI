@@ -4,6 +4,7 @@ import backend.chess.pieces.old.Piece;
 
 import java.util.Arrays;
 
+@Deprecated
 public class Queen extends Piece {
 
     public Queen(int x, int y, int color) {

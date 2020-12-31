@@ -4,6 +4,7 @@ import backend.chess.pieces.old.Piece;
 
 import java.util.Arrays;
 
+@Deprecated
 public class Rook extends Piece {
     public Rook(int x, int y, int color){
         super(x, y, 'R', false, color);

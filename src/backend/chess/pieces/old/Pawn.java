@@ -2,6 +2,7 @@ package backend.chess.pieces.old;
 
 import backend.chess.ChessManager;
 
+@Deprecated
 public class Pawn extends Piece{
 
     public Pawn(int x, int y, int color){

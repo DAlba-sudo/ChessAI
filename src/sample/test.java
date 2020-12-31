@@ -13,6 +13,9 @@ public class test {
     public static void main(String[] args) {
         cb = new ChessBoard();
         cb.display();
+        System.out.println();
+        System.out.println("---------------------------");
+
 
         Player diego = new Player(cb, 1);
         Player ai = new Player(cb, 0);
@@ -24,8 +27,10 @@ public class test {
         movePieceShorthand(diego, "g4");
         movePieceShorthand(ai, "hxg4");
         movePieceShorthand(diego, "Qxg4");
-        movePieceShorthand(ai, "Bg4");
-        movePieceShorthand(diego, "Qxg7");
+        movePieceShorthand(ai, "Bxg4");
+        movePieceShorthand(diego, "d3");
+        movePieceShorthand(ai, "Nf6");
+        movePieceShorthand(diego, "Ba6");
     }
 
     public static void movePieceShorthand(Player p, String notation){
@@ -35,6 +40,9 @@ public class test {
             System.out.println();
             System.out.println("Not Possible move! > " + notation);
         }
+        System.out.println();
+        System.out.println("---------------------------");
+
     }
 
 }

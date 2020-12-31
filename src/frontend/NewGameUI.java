@@ -9,20 +9,19 @@ import java.util.ArrayList;
 
 public class NewGameUI extends UI {
 
-    private Button goBackBtn;
-
-    private ListView<String> moves = new ListView<>();
+    private Button goBackBtn, practiceOpenings;
 
     public NewGameUI(){
         setHeader("Chess Game");
         // create instances of UI Components
         goBackBtn = UIManager.createGoBackBtn();
-
-        // create the moves list
-
-
+        practiceOpenings = UIManager.createBtn("Practice Openings");
+        practiceOpenings.setOnAction(e -> {
+            UIManager.displayUI(new PracticeOpeningsUI());
+        });
 
         addNode(goBackBtn, 0, 2);
+        addNode(practiceOpenings, 2, 2);
     }
 
 }
