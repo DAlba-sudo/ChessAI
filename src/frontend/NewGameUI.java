@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class NewGameUI extends UI {
 
-    private Button goBackBtn, practiceOpenings;
+    private Button goBackBtn, practiceOpenings, playWithAI;
 
     public NewGameUI(){
         setHeader("Chess Game");
@@ -19,9 +19,14 @@ public class NewGameUI extends UI {
         practiceOpenings.setOnAction(e -> {
             UIManager.displayUI(new PracticeOpeningsUI());
         });
+        playWithAI = UIManager.createBtn("Play AI");
+        playWithAI.setOnAction(e -> {
+            UIManager.displayUI(new PlayAI());
+        });
 
         addNode(goBackBtn, 0, 2);
         addNode(practiceOpenings, 2, 2);
+        addNode(playWithAI, 0, 3);
     }
 
 }

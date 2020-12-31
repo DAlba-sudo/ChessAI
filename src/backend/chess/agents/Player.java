@@ -7,7 +7,7 @@ import backend.chess.pieces.revised.PieceV2;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class Player {
+public abstract class Player {
 
     private LinkedList<PieceV2> pieces = new LinkedList<>();
     private ChessBoard cb;
@@ -112,5 +112,11 @@ public class Player {
         }
 
         return false;
+    }
+
+    public abstract String queryMove();
+
+    public int getColor() {
+        return color;
     }
 }
