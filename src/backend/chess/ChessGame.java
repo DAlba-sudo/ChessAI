@@ -4,6 +4,7 @@ import backend.chess.agents.Player;
 import backend.fsm.state;
 import backend.ui.UIManager;
 import frontend.PlayAI;
+import frontend.base.GameUI;
 import sun.misc.Queue;
 
 import java.io.BufferedWriter;
@@ -77,10 +78,10 @@ public class ChessGame {
         String move = playerToMove.queryMove();
         if(playerToMove.movePiece(move)){
             // if it is a valid move (record it as such)
-            recordMove(move);
-            if(PlayAI.class.isInstance(UIManager.getCurrent_ui())){
-                PlayAI ui = (PlayAI) UIManager.getCurrent_ui();
-                ui.updateListView();
+//            recordMove(move);
+            if(GameUI.class.isInstance(UIManager.getCurrent_ui())){
+                GameUI ui = (GameUI) UIManager.getCurrent_ui();
+                ui.addMove(move);
             }
             whiteToMove = !whiteToMove;
         } else {

@@ -3,6 +3,7 @@ package backend.chess.pieces.revised;
 import backend.chess.ChessManager;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public abstract class PieceV2 {
 
@@ -38,6 +39,16 @@ public abstract class PieceV2 {
         int target_file = target_position[1];
 
         if(ChessManager.isCapturing(notation)){
+            return isCaptureLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
+        }
+        return isMoveLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
+    }
+
+    public boolean isPosLegal(int[] pos, boolean isCapturing){
+        int target_rank = pos[0];
+        int target_file = pos[1];
+
+        if(isCapturing){
             return isCaptureLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
         }
         return isMoveLegal(target_rank, target_file) && isValidPos(target_rank, target_file) && !isDead;
@@ -125,5 +136,26 @@ public abstract class PieceV2 {
                 ", notation_for_piece=" + notation_for_piece +
                 ", isDead=" + isDead +
                 '}';
+    }
+
+    public LinkedList<int[]> getLegalMoves(boolean includeCapture) {
+        LinkedList<int[]> valid_pos = new LinkedList<>();
+
+        for(int r = 0; r < 8; r++){
+            for(int c = 0; c < 8; c++){
+                int[] current_position = {c+1, r+1};
+                if(includeCapture) {
+                    if (isPosLegal(current_position, false)) {
+                        valid_pos.add(current_position);
+                    }
+                } else {
+                    if(isPosLegal(current_position, true)){
+                        valid_pos.add(current_position);
+                    }
+                }
+            }
+        }
+
+        return valid_pos;
     }
 }

@@ -19,6 +19,10 @@ public abstract class Player {
         setPieces();
     }
 
+    public LinkedList<PieceV2> getPieces() {
+        return pieces;
+    }
+
     private void setPieces(){
         // used to update our pieces library (housekeeping)
         if(!pieces.isEmpty()){
@@ -118,5 +122,9 @@ public abstract class Player {
 
     public int getColor() {
         return color;
+    }
+
+    public ChessBoard getCb() {
+        return cb;
     }
 }

@@ -158,6 +158,31 @@ public class ChessBoard {
         return true;
     }
 
+    public boolean doesCollide(PieceV2 p1, int[] coordinate){
+
+        // types of supported movement
+        boolean isDiagonal = p1.isMovingDiagonal(coordinate[0], coordinate[1]);
+        boolean isMovingInFile = coordinate[0] == p1.getCurrentCoordinate()[0];
+        boolean isMovingInRank = coordinate[1] == p1.getCurrentCoordinate()[1];
+
+        if(p1.isMoving(coordinate[0], coordinate[1])){
+            if(isDiagonal){
+                // checks for pieces on the same diagonal
+                return !piecesOnDiagonal(p1, coordinate);
+            } else if (isMovingInFile && !isMovingInRank){
+                // checks for pieces on the same file (up and down)
+                return !piecesOnFile(p1, coordinate[1]);
+            } else if (!isMovingInFile && isMovingInRank){
+                // checks for pieces on the same rank (side to side)
+                return !piecesOnRank(p1, coordinate[0]);
+            } else {
+                // unnacounted for movement
+                return true;
+            }
+        }
+        return true;
+    }
+
     private boolean piecesOnFile(PieceV2 p1, int target_rank) {
         // "scan" each rank on this set file for possible pieces
         int file_movement_dir = 1;
@@ -205,11 +230,23 @@ public class ChessBoard {
             y_mult = -1;
         }
 
-        for(int i = 1; i < p.delta(p.getCurrentCoordinate()[0], target_location[0]); i++){
-            if(findPieceByCoordinate(new int[]{p.getCurrentCoordinate()[0]+(x_mult*i),
-                    p.getCurrentCoordinate()[1]+(y_mult*i)}) != null){
-                return true;
-            };
+        int delta = p.delta(p.getCurrentCoordinate()[0], target_location[0]);
+
+        if(delta > 1){
+            for(int i = 1; i < p.delta(p.getCurrentCoordinate()[0], target_location[0]); i++){
+                if(findPieceByCoordinate(new int[]{p.getCurrentCoordinate()[0]+(x_mult*i),
+                        p.getCurrentCoordinate()[1]+(y_mult*i)}) != null){
+                    return true;
+                };
+            }
+        } else {
+            // collision resistance for king moves && other 1 distance moves
+            for(int i = 1; i <= p.delta(p.getCurrentCoordinate()[0], target_location[0]); i++){
+                if(findPieceByCoordinate(new int[]{p.getCurrentCoordinate()[0]+(x_mult*i),
+                        p.getCurrentCoordinate()[1]+(y_mult*i)}) != null){
+                    return true;
+                };
+            }
         }
         return false;
     }

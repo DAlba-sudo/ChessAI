@@ -151,4 +151,26 @@ public class ChessManager {
         }
         return null;
     }
+
+    public static String coordinateToNotation(int[] coordinate, PieceV2 p, boolean isCapturing) {
+        if(p.getNotation() != null && !isCapturing){
+            return p.getNotation().toString() + '/' + numToFile(p.getCurrentCoordinate()[0])
+                    + Integer.toString(p.getCurrentCoordinate()[1])
+                    + numToFile(coordinate[0]) + Integer.toString(coordinate[1]);
+        } else if (p.getNotation() != null && isCapturing) {
+            return p.getNotation().toString() + '/' + numToFile(p.getCurrentCoordinate()[0])
+                    + Integer.toString(p.getCurrentCoordinate()[1]) + 'x'
+                    + numToFile(coordinate[0]) + Integer.toString(coordinate[1]);
+        } else {
+            if(!isCapturing){
+                return numToFile(p.getCurrentCoordinate()[0])
+                        + Integer.toString(p.getCurrentCoordinate()[1])
+                        + numToFile(coordinate[0]) + Integer.toString(coordinate[1]);
+            } else {
+                return numToFile(p.getCurrentCoordinate()[0])
+                        + Integer.toString(p.getCurrentCoordinate()[1]) + 'x'
+                        + numToFile(coordinate[0]) + Integer.toString(coordinate[1]);
+            }
+        }
+    }
 }

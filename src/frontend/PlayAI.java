@@ -5,15 +5,14 @@ import backend.chess.agents.AI;
 import backend.chess.agents.Person;
 import backend.ui.UI;
 import backend.ui.UIManager;
+import frontend.base.GameUI;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.io.*;
 
-public class PlayAI extends UI {
-
-    private ListView moveList = new ListView();
+public class PlayAI extends GameUI {
 
     private ChessGame cg;
     private TextField moveEnterTf;
@@ -22,6 +21,7 @@ public class PlayAI extends UI {
     private Thread game_thread;
 
     public PlayAI(){
+        super();
         // Chess Game Set UP
         setUpChessGame();
 
@@ -34,14 +34,13 @@ public class PlayAI extends UI {
         moveEnterTf = UIManager.createTf();
         moveEnterBtn = UIManager.createBtn("Enter Move");
         moveEnterBtn.setOnAction(e -> {
-            updateListView();
             moveEnterBtn.setDisable(true);
         });
 
-        addNode(moveList, 0, 1, 10);
-        addNode(moveEnterTf, 0, 2, 10);
-        addNode(moveEnterBtn, 0 , 3);
-        addNode(goBackBtn, 2, 3);
+        addCML(0, 2, 10);
+        addNode(moveEnterTf, 0, 3, 10);
+        addNode(moveEnterBtn, 0 , 4);
+        addNode(goBackBtn, 2, 4);
 
         game_thread = new Thread(()->{
             while(!Thread.interrupted() && !quitting){
@@ -50,28 +49,6 @@ public class PlayAI extends UI {
         });
 
         game_thread.start();
-    }
-
-    public void updateListView(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(new File(cg.getCurrenGamePath().toString())));
-            moveList.getItems().remove(0, moveList.getItems().size());
-            String line;
-            while((line = br.readLine()) != null){
-                StringBuilder sb = new StringBuilder();
-                String[] split_line = line.split(";");
-                for(String s : split_line){
-                    sb.append(s).append("     ");
-                }
-
-                moveList.getItems().add(sb.toString());
-            }
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
     }
 
     public Button getMoveEnterBtn() {
