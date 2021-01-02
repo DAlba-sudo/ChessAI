@@ -55,30 +55,80 @@ public class PieceHelper {
                 if(isForward || isBackward){
                     // if moving on the file
                     int squares_to_traverse = deltaAbs(to[1], from[1]);
-                    int[][] squares = new int[squares_to_traverse][2];
+                    int[][] squares = new int[squares_to_traverse+1][2];
                     if(isForward && !isBackward){
-                        for(int i = 0; i < squares_to_traverse; i++){
-                            squares[i] = new int[]{from[0], from[1]+i};
+                        for(int i = 0; i <= squares_to_traverse; i++){
+                            int[] proposed_square = squares[i] = new int[]{from[0], from[1]+i};
+                            if(!Arrays.equals(from, proposed_square) && isWithinBounds(to)){
+                                squares[i] = proposed_square;
+                            } else {
+                                squares[i] = new int[]{-999,-999};
+                            }
                         }
                         return squares;
                     } else if (!isForward && isBackward){
-                        for(int i = 0; i < squares_to_traverse; i++){
-                            squares[i] = new int[]{from[0], from[1]-i};
+                        for(int i = 0; i <= squares_to_traverse; i++){
+                            int[] proposed_square = squares[i] = new int[]{from[0], from[1]-i};
+                            if(!Arrays.equals(from, proposed_square) && isWithinBounds(to)){
+                                squares[i] = proposed_square;
+                            } else {
+                                squares[i] = new int[]{-999,-999};
+                            }
                         }
                         return squares;
                     }
                 } else if (isToRight || isToLeft){
                     // if moving on the rank
                     int squares_to_traverse = deltaAbs(to[0], from[0]);
-                    int[][] squares = new int[squares_to_traverse][2];
+                    int[][] squares = new int[squares_to_traverse+1][2];
+                    if(isToRight && !isToLeft){
+                        for(int i = 0; i <= squares_to_traverse; i++){
+                            int[] proposed_square = new int[]{from[0]+i, from[1]};
+                            if(!Arrays.equals(from, proposed_square) && isWithinBounds(to)){
+                                squares[i] = proposed_square;
+                            } else {
+                                squares[i] = new int[]{-999, -999};
+                            }
+                        }
+                        return squares;
+                    } else if (!isToRight && isToLeft){
+                        for(int i = 0; i <= squares_to_traverse; i++){
+                            int[] proposed_square = new int[]{from[0]-i, from[1]};
+                            if(!Arrays.equals(from, proposed_square) && isWithinBounds(to)){
+                                squares[i] = proposed_square;
+                            } else {
+                                squares[i] = new int[]{-999, -999};
+                            }
+                        }
+                        return squares;
+                    }
+                } else {
+                    return new int[][]{};
                 }
-                return new int[][]{};
             } else {
                 // if it is diagonal
-                return new int[][]{};
+                int squares_to_traverse = deltaAbs(to[0], from[0]);
+                int[][] squares = new int[squares_to_traverse+1][2];
+                int xmult = 1, ymult = 1;
+                if (isForward && isToLeft){
+                    xmult = -1;
+                } else if (isBackward && isToRight){
+                    ymult = -1;
+                } else if (isBackward && isToLeft){
+                    ymult = -1;
+                    xmult = -1;
+                }
+                for(int i = 0; i <= squares_to_traverse; i++){
+                    int[] proposed_square = new int[]{from[0]+(xmult*i), from[1]+(ymult*i)};
+                    if(!Arrays.equals(from, proposed_square) && isWithinBounds(to)){
+                        squares[i] = proposed_square;
+                    } else {
+                        squares[i] = new int[]{-999, -999};
+                    }
+                }
+                return squares;
             }
-        } else {
-            return new int[][]{};
         }
+        return new int[][]{};
     }
 }

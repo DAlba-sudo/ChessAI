@@ -20,7 +20,7 @@ public class ChessHelper {
         // will return the position of the notation given in the form of [0, 4] for a5
 
         if(notation.length() >= 2){
-            return new int[]{getNumFromFile(notation.charAt(0)), Integer.parseInt(String.valueOf(notation.charAt(1)))};
+            return new int[]{getNumFromFile(notation.charAt(0)), Integer.parseInt(String.valueOf(notation.charAt(1)))-1};
         }
         return new int[]{-1, -1};
     }
@@ -53,5 +53,19 @@ public class ChessHelper {
 
         sb.append(getFileFromNum(target_coordinate[0])).append(target_coordinate[1]);
         return sb.toString();
+    }
+
+    public static String convertCoordinate(int[] target_coordinate){
+        return getFileFromNum(target_coordinate[0]) + (Integer.toString(target_coordinate[1]+1));
+    }
+
+    public static boolean isCapturing(String notation){
+        for(int i = 0; i < notation.length(); i++){
+            char current_char = notation.charAt(i);
+            if(current_char == 'x'){
+                return true;
+            }
+        }
+        return false;
     }
 }

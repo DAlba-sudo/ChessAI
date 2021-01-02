@@ -2,6 +2,8 @@ package backend.chess.pieces.base;
 
 import backend.chess.env.ChessHelper;
 
+import java.util.Arrays;
+
 public abstract class piece {
 
     private String current_pos;
@@ -15,6 +17,9 @@ public abstract class piece {
         setColor(color);
         setAbbreviation(piece_abrev);
     }
+
+    public abstract boolean isMoveLegal(int[] to);
+    public abstract boolean isCaptureLegal(int[] to);
 
     public int getColor() {
         return color;
@@ -30,5 +35,19 @@ public abstract class piece {
 
     public Character getAbbreviation() {
         return piece_abrev;
+    }
+
+    public int[] getCurrentCoordinate() {
+        return current_coordinate;
+    }
+
+    @Override
+    public String toString() {
+        return "piece{" +
+                "current_pos='" + current_pos + '\'' +
+                ", color=" + color +
+                ", current_coordinate=" + Arrays.toString(current_coordinate) +
+                ", piece_abrev=" + piece_abrev +
+                '}';
     }
 }
