@@ -10,6 +10,7 @@ public abstract class piece {
     private int color;
     private int[] current_coordinate;
     private Character piece_abrev;
+    private boolean isDead = false;
 
     public piece(int color, String notation, Character piece_abrev){
         this.current_pos = notation;
@@ -39,6 +40,18 @@ public abstract class piece {
 
     public int[] getCurrentCoordinate() {
         return current_coordinate;
+    }
+
+    public void setCoordinate(int[] current_coordinate) {
+        this.current_coordinate = current_coordinate;
+    }
+
+    public void setDead() {
+        isDead = true;
+    }
+
+    public boolean getDead(){
+        return isDead;
     }
 
     @Override

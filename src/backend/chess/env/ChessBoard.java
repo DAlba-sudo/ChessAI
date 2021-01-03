@@ -6,7 +6,6 @@ import backend.chess.pieces.extension.*;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Stack;
 
 public class ChessBoard {
 
@@ -193,24 +192,7 @@ public class ChessBoard {
             // we are not dealing with a simple pawn move
             if((notation.length() == 3 && !isCapturing) || (notation.length() == 4 && !isCapturing)){
                 // we are dealing with an unambiguous normal move
-                Class<? extends piece> pieceType = piece.class;
-                switch (notation.charAt(0)){
-                    case 'R':
-                        pieceType = rook.class;
-                        break;
-                    case 'B':
-                        pieceType = bishop.class;
-                        break;
-                    case 'Q':
-                        pieceType = queen.class;
-                        break;
-                    case 'K':
-                        pieceType = king.class;
-                        break;
-                    case 'N':
-                        pieceType = knight.class;
-                        break;
-                }
+                Class<? extends piece> pieceType = ChessHelper.getPieceType(notation);
                 for(piece p : pieces){
                     if(pieceType.isInstance(p) && (p.isMoveLegal(to))){
                         // if we have the correct pawn return it
@@ -228,25 +210,7 @@ public class ChessBoard {
                 return null;
             } else {
                 // we have a non-pawn ambiguous move
-                Class<? extends piece> pieceType = piece.class;
-                switch (notation.charAt(0)){
-                    case 'R':
-                        pieceType = rook.class;
-                        break;
-                    case 'B':
-                        pieceType = bishop.class;
-                        break;
-                    case 'Q':
-                        pieceType = queen.class;
-                        break;
-                    case 'K':
-                        pieceType = king.class;
-                        break;
-                    case 'N':
-                        pieceType = knight.class;
-                        break;
-                }
-
+                Class<? extends piece> pieceType = ChessHelper.getPieceType(notation);
                 StringBuilder relevant_from = new StringBuilder();
                 String from_notation = "";
 
@@ -290,5 +254,9 @@ public class ChessBoard {
             return null;
         }
         return null;
+    }
+
+    public LinkedList<piece> getPieceList() {
+        return this.pieces;
     }
 }

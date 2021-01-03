@@ -1,6 +1,7 @@
 package backend.chess.env;
 
 import backend.chess.pieces.base.piece;
+import backend.chess.pieces.extension.*;
 
 public class ChessHelper {
     public static char[] file_abrev = {
@@ -67,5 +68,27 @@ public class ChessHelper {
             }
         }
         return false;
+    }
+
+    public static Class<? extends piece> getPieceType(String notation){
+        Class<? extends piece> pieceType = pawn.class;
+        switch (notation.charAt(0)){
+            case 'R':
+                pieceType = rook.class;
+                break;
+            case 'B':
+                pieceType = bishop.class;
+                break;
+            case 'Q':
+                pieceType = queen.class;
+                break;
+            case 'K':
+                pieceType = king.class;
+                break;
+            case 'N':
+                pieceType = knight.class;
+                break;
+        }
+        return pieceType;
     }
 }
