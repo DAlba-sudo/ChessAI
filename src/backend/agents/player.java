@@ -1,65 +1,108 @@
 package backend.agents;
 
 import backend.chess.env.ChessBoard;
-import backend.chess.env.ChessHelper;
-import backend.chess.pieces.base.piece;
-import backend.chess.pieces.extension.pawn;
+import backend.chess.env.ChessNotation;
+import backend.chess.pieces.*;
 
 import java.util.LinkedList;
 
-public class player {
+public abstract class player {
     private int color;
+    private LinkedList<Piece> pieces = new LinkedList<>();
     private ChessBoard cb;
-    private LinkedList<piece> pieces = new LinkedList<>();
 
     public player(int color, ChessBoard cb){
-        this.color = color;
-        setBoard(cb);
-        setPiecesFromBoard();
+        setColor(color);
+        setCb(cb);
+        getPiecesFromBoard();
     }
 
-    private void setBoard(ChessBoard cb){
-        this.cb = cb;
+    public boolean movePieceRequest(String notation){
+        int[] to = ChessNotation.findTo(notation);
+        boolean isCapture = ChessNotation.isCapture(notation);
+        Class<? extends Piece> pieceType = ChessNotation.getPieceType(notation);
+        int[] from = ChessNotation.findFrom(notation, pieceType);
+
+        Piece piece = getPieceGivenInfo(to, from, isCapture, pieceType);
+
+        if(piece != null) {
+            return movePieceRequest(to, isCapture, piece);
+        } else {
+            return false;
+        }
     }
 
-    private void setPiecesFromBoard(){
-        for(piece p : cb.getPieceList()){
-            if(p.getColor() == getColor()){
+    private Piece getPieceGivenInfo(int[] to, int[] from, boolean isCapturing, Class<? extends Piece> pieceType) {
+        for(Piece p : pieces){
+            if(pieceType.isInstance(p)){
+                if(from[0] != -1 || from[1] != -1){
+                    if((from[0] == p.getPos()[0] && (from[1] == -1)) || (from[0] == p.getPos()[0] && (from[1] == p.getPos()[1]))){
+                        // if the piece matches some parameter from our thing
+                        return p;
+                    }
+                } else {
+                    if(p.isMoveLegal(to, isCapturing)){
+                        return p;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public boolean movePieceRequest(int[] to, boolean isCapture, Piece piece){
+        getPiecesFromBoard(); // update our piece list each time
+
+        boolean isValidMove = getCb().validateMove(to, isCapture, piece);
+        // if the chess board validates the move, hooray! Now move the piece.
+        if(isValidMove){
+            // move the piece
+            if(isCapture){
+                Piece pieceTkn = getCb().locatePiece(to);
+                pieceTkn.setDead(true);
+                getCb().getPieces().remove(pieceTkn);
+            }
+            piece.setPos(to);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void getPiecesFromBoard(){
+        for(Piece p : getCb().getPieces()){
+            if(p.getColor() == getColor() && !p.isDead()){
+                // if the pieces' color is the same as our own and is alive
+                // take that junt
                 pieces.add(p);
             }
         }
     }
 
-    public boolean move(String notation){
-        Class<? extends piece> pieceType = ChessHelper.getPieceType(notation);
-        boolean isCapturing = ChessHelper.isCapturing(notation);
-        int[] to = ChessHelper.getDestinationFromNotation(notation);
-        for(piece p : pieces){
-            if(pieceType.isInstance(p)){
-                // if piece type is the one we need let's check to make sure it is a legal move
-                if(pieceType == pawn.class && !p.getDead()){
-                    // special cases for pawn
-                    if(isCapturing){
-                        int originating_file = ChessHelper.getNumFromFile(notation.charAt(0));
-                        if(p.getCurrentCoordinate()[0] == originating_file){
-                            piece captured_piece = cb.findPieceByCoordinate(to);
-                            if(p.isCaptureLegal(to) && captured_piece != null){
-                                captured_piece.setDead();
-                                p.setCoordinate(to);
-                                return true;
-                            }
-                        }
-                    } else {
+    public LinkedList<Piece> getPieces() {
+        return pieces;
+    }
 
-                    }
-                } else {
-                    // handle for non-pawn cases
-                }
-            }
-        }
+    public void setPieces(LinkedList<Piece> pieces) {
+        this.pieces = pieces;
+    }
+
+    public ChessBoard getCb() {
+        return cb;
+    }
+
+    public void setCb(ChessBoard cb) {
+        this.cb = cb;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public int getColor() {
         return color;
     }
+
+    // method that will act as the interface for the move request (tbd per implementation)
+    public abstract int[] queryMove();
 }
