@@ -1,10 +1,7 @@
 package sample;
 
 import backend.ui.UIManager;
-import frontend.StartUI;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -14,9 +11,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        StartUI home = new StartUI();
+//        Game home = new StartUI();
 
-        uiManager = new UIManager(home, primaryStage);
+//        uiManager = new UIManager(home, primaryStage);
         UIManager.getCurrent_ui().getRoot().setMaxWidth(Double.MAX_VALUE);
         Scene scene = new Scene(UIManager.getCurrent_ui().getRoot(), 500, 600);
 
