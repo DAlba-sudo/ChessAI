@@ -104,5 +104,5 @@ public abstract class player {
     }
 
     // method that will act as the interface for the move request (tbd per implementation)
-    public abstract int[] queryMove();
+    public abstract String queryMove();
 }

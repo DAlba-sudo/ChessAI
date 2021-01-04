@@ -16,6 +16,10 @@ public class ChessNotation {
         return -1;
     }
 
+    public static String fileFromNum(int num){
+        return Character.toString(files_abbrev[num]);
+    }
+
     public static boolean isCapture(String notation){
         for(int i = notation.length()-1; i >= 0; i--){
             char current_char = notation.charAt(i);
@@ -101,5 +105,26 @@ public class ChessNotation {
             }
         }
         return false;
+    }
+
+    public static String toNotation(Piece p, int[] move, boolean isCapturing) {
+        StringBuilder sb = new StringBuilder();
+        int[] from = p.getPos();
+        if(p instanceof Pawn){
+            if(isCapturing){
+                sb.append(fileFromNum(from[0])).append('x').append(fileFromNum(move[0])).append(move[0]+1);
+            } else {
+                sb.append(fileFromNum(move[0])).append(move[0]+1);
+            }
+            return sb.toString();
+        } else {
+            sb.append(p.getAbbreviation()).append('/').append(fileFromNum(from[0])).append(from[1]+1);
+            if(isCapturing){
+                sb.append('x').append(fileFromNum(move[0])).append(move[0]+1);
+            } else {
+                sb.append(fileFromNum(move[0])).append(move[0]+1);
+            }
+            return sb.toString();
+        }
     }
 }
